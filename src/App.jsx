@@ -12,6 +12,7 @@ import Header from './components/common/Header';
 import Sidebar from './components/chat/Sidebar';
 import ChatBox from './components/chat/ChatBox';
 import './App.css';
+import Profile from './components/auth/Profile';
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -29,16 +30,24 @@ function App() {
                   path="/"
                   element={
                     <ProtectedRoute>
-                      <MainLayout 
-                        sidebarCollapsed={sidebarCollapsed} 
-                        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
+                      <MainLayout
+                        sidebarCollapsed={sidebarCollapsed}
+                        toggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
                       />
                     </ProtectedRoute>
                   }
                 />
                 <Route path="*" element={<Navigate to="/" replace />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
-              
+
               <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -61,31 +70,31 @@ function App() {
 const MainLayout = ({ sidebarCollapsed, toggleSidebar }) => {
   return (
     <div className="main-layout">
-      <Header 
+      <Header
         sidebarCollapsed={sidebarCollapsed}
         toggleSidebar={toggleSidebar}
       />
-      
+
       <Container fluid className="main-content">
         <Row className="h-100">
           {/* Collapsible Sidebar */}
-          <Col 
-            xs={sidebarCollapsed ? 1 : 12} 
-            md={sidebarCollapsed ? 1 : 4} 
-            lg={sidebarCollapsed ? 1 : 3} 
+          <Col
+            xs={sidebarCollapsed ? 1 : 12}
+            md={sidebarCollapsed ? 1 : 4}
+            lg={sidebarCollapsed ? 1 : 3}
             className={`sidebar-column ${sidebarCollapsed ? 'collapsed' : ''}`}
           >
-            <Sidebar 
-              collapsed={sidebarCollapsed} 
+            <Sidebar
+              collapsed={sidebarCollapsed}
               onToggle={toggleSidebar}
             />
           </Col>
-          
+
           {/* Chat Area - Adjusts based on sidebar state */}
-          <Col 
-            xs={sidebarCollapsed ? 11 : 12} 
-            md={sidebarCollapsed ? 11 : 8} 
-            lg={sidebarCollapsed ? 11 : 9} 
+          <Col
+            xs={sidebarCollapsed ? 11 : 12}
+            md={sidebarCollapsed ? 11 : 8}
+            lg={sidebarCollapsed ? 11 : 9}
             className="chat-column"
           >
             <ChatBox />

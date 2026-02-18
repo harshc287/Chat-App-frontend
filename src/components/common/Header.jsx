@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  Navbar, 
-  Container, 
+import {
+  Navbar,
+  Container,
   Button,
   Dropdown,
   Image,
@@ -10,8 +10,8 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useChat } from '../../contexts/ChatContext';
-import { 
-  FaBars, 
+import {
+  FaBars,
   FaTimes,
   FaUser,
   FaSignOutAlt,
@@ -27,7 +27,7 @@ const Header = ({ sidebarCollapsed, toggleSidebar }) => {
   const { user, logout } = useAuth();
   const { notification } = useChat();
   const navigate = useNavigate();
-  
+
   const [darkMode, setDarkMode] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,14 +63,15 @@ const Header = ({ sidebarCollapsed, toggleSidebar }) => {
       <Navbar expand="lg" className="app-header" fixed="top">
         <Container fluid>
           {/* Sidebar Toggle Button */}
-          <Button
+          {/* <Button
             variant="link"
             className="sidebar-toggle"
             onClick={toggleSidebar}
             aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {sidebarCollapsed ? <FaBars /> : <FaTimes />}
-          </Button>
+            <FaBars />
+
+            </Button> */}
 
           {/* App Logo */}
           <Navbar.Brand as={Link} to="/" className="app-logo">
@@ -85,7 +86,7 @@ const Header = ({ sidebarCollapsed, toggleSidebar }) => {
           </Navbar.Brand>
 
           {/* Search Bar */}
-          <div className={`search-container ${showSearch ? 'expanded' : ''}`}>
+          {/* <div className={`search-container ${showSearch ? 'expanded' : ''}`}>
             {showSearch ? (
               <form onSubmit={handleSearch} className="search-form">
                 <div className="input-group">
@@ -115,7 +116,7 @@ const Header = ({ sidebarCollapsed, toggleSidebar }) => {
                 <FaSearch />
               </Button>
             )}
-          </div>
+          </div> */}
 
           {/* Header Actions */}
           <div className="header-actions">
@@ -190,21 +191,20 @@ const Header = ({ sidebarCollapsed, toggleSidebar }) => {
                     </div>
                   </div>
                 </div>
-                
+
                 <Dropdown.Divider />
-                
-                <Dropdown.Item as={Link} to="/profile">
-                  <FaUser className="me-2" />
-                  My Profile
+
+                <Dropdown.Item onClick={() => navigate('/profile')}>
+                  Profile
                 </Dropdown.Item>
-                
+
                 <Dropdown.Item as={Link} to="/settings">
                   <FaCog className="me-2" />
                   Settings
                 </Dropdown.Item>
-                
+
                 <Dropdown.Divider />
-                
+
                 <Dropdown.Item onClick={handleLogout} className="text-danger">
                   <FaSignOutAlt className="me-2" />
                   Logout

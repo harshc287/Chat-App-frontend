@@ -188,22 +188,41 @@ const handleFindPeople = async () => {
       const active = selectedChat?._id === chat._id;
 
       return (
-        <ListGroup.Item
-          key={chat._id}
-          onClick={() => handleChatClick(chat)}
-          className={`chat-item ${active ? 'active' : ''}`}
-        >
-          <div className="chat-info">
-            <h6>{getDisplayName(chat)}</h6>
-            <small>
-              {chat.latestMessage
-                ? truncateText(chat.latestMessage.content, 25)
-                : 'No messages yet'}
-            </small>
-          </div>
+<ListGroup.Item
+  key={chat._id}
+  onClick={() => handleChatClick(chat)}
+  className={`chat-item ${collapsed ? 'collapsed' : ''} ${active ? 'active' : ''}`}
+>
+  {/* Avatar */}
+  <div className="chat-avatar-col">
+    <div className="avatar-mini">
+      <span className="avatar-text">
+        {getDisplayName(chat).charAt(0).toUpperCase()}
+      </span>
+    </div>
+  </div>
 
-          {unread > 0 && <Badge bg="primary">{unread}</Badge>}
-        </ListGroup.Item>
+  {/* Text */}
+  {!collapsed && (
+    <div className="chat-text-col">
+      <div className="chat-name">{getDisplayName(chat)}</div>
+      <div className="chat-last">
+        {chat.latestMessage
+          ? truncateText(chat.latestMessage.content, 30)
+          : 'No messages yet'}
+      </div>
+    </div>
+  )}
+
+  {/* Unread */}
+  {!collapsed && unread > 0 && (
+    <div className="chat-meta-col">
+      <Badge bg="primary">{unread}</Badge>
+    </div>
+  )}
+</ListGroup.Item>
+
+
       );
     })}
 </ListGroup>
